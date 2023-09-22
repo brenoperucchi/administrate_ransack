@@ -1,3 +1,37 @@
+#Custom Editing
+
+## To enable `Administrate::Field:Scope`
+
+Adding your `app/models/your_model.rb`
+```rb
+  class << self
+    def ransackable_scopes(_auth_object = nil)
+      %i[profit_search ticket_search state_search]
+    end
+  end
+
+  def self.state_search(*attrs)
+    attrs.reject!{|item| item.empty?}
+    return true unless attrs.present?
+    self.where(state:attrs)
+    
+  end
+```
+
+Adding your `views/your_models/index.html.erb`
+```html
+<%= 
+  states = [ ['pending', 'pending'], ['executed', 'executed'], ['error', 'error'], ['closed', 'closed'] ]
+  attribute_labels = { state_search: 'States' }
+
+  render('administrate_ransack/filters', attribute_labels: attribute_labels, attribute_types: attribute_types, options: { tags: 'select', states: states }) 
+%>
+
+```
+
+for any help: bperucchi@gmail.com
+
+---------------------------------
 # Administrate Ransack
 [![gem version](https://badge.fury.io/rb/administrate_ransack.svg)](https://badge.fury.io/rb/administrate_ransack)
 [![gem downloads](https://badgen.net/rubygems/dt/administrate_ransack)](https://rubygems.org/gems/administrate_ransack)
@@ -128,6 +162,9 @@ attribute_labels = {
 ```erb
 <%= render('administrate_ransack/filters', attribute_types: @dashboard.class::RANSACK_TYPES) %>
 ```
+Screenshot:
+![screenshot](extra/screenshot3.png)
+
 
 ## Sample styles
 

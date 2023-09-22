@@ -8,6 +8,7 @@ module AdministrateRansack
     'Administrate::Field::DateTime' => 'field_date',
     'Administrate::Field::Email' => 'field_string',
     'Administrate::Field::HasMany' => 'field_has_many',
+    'Administrate::Field::Scope' => 'field_scope',
     'Administrate::Field::Number' => 'field_number',
     'Administrate::Field::Select' => 'field_select',
     'Administrate::Field::String' => 'field_string',
