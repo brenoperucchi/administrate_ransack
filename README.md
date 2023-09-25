@@ -1,29 +1,35 @@
-#Custom Editing
+#brenoperucchi modification 
 
-## To enable `Administrate::Field:Scope`
+### To enable `Administrate::Field:Scope`
+
+Screenshot:
+
+![screenshot](extra/screenshot3.png)
 
 Adding your `app/models/your_model.rb`
 ```rb
   class << self
     def ransackable_scopes(_auth_object = nil)
-      %i[profit_search ticket_search state_search]
+      %i[state_search]
     end
   end
 
   def self.state_search(*attrs)
     attrs.reject!{|item| item.empty?}
     return true unless attrs.present?
-    self.where(state:attrs)
+    self.where(state:attrs) # you should change change attribute to your object (state: or status: or etc)
     
   end
 ```
 
 Adding your `views/your_models/index.html.erb`
 ```html
-<%= 
-  states = [ ['pending', 'pending'], ['executed', 'executed'], ['error', 'error'], ['closed', 'closed'] ]
+<%=
+  states = [ ['pending', 'pending'], ['executed', 'executed'], ['error', 'error'], ['closed', 'closed'] ] # you should change states params to your object states or status or etc
+  
+  attribute_types  = { state_search: "Administrate::Field::Scope"  }
   attribute_labels = { state_search: 'States' }
-
+  
   render('administrate_ransack/filters', attribute_labels: attribute_labels, attribute_types: attribute_types, options: { tags: 'select', states: states }) 
 %>
 
@@ -163,7 +169,7 @@ attribute_labels = {
 <%= render('administrate_ransack/filters', attribute_types: @dashboard.class::RANSACK_TYPES) %>
 ```
 Screenshot:
-![screenshot](extra/screenshot3.png)
+![screenshot](extra/screenshot2.png)
 
 
 ## Sample styles
