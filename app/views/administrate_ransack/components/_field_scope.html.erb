@@ -1,9 +1,6 @@
-<% collection = %w(all error executed closed) %>
-<% association = model.reflections[field.to_s] %>
 
 <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_id_in" %>
 
-<% collection ||= association.klass.send(association.klass.respond_to?(:admin_scope) ? :admin_scope : :all) %>
 <% states_selected = form.object.state_search.reject {|item| item.empty?} if form.object.state_search.is_a?(Array) %>
 <%= form.label(label, class: 'filter-label') %>
 <%= form.select(field_key, nil, {}, multiple: true) do %>
