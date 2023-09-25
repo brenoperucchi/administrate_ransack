@@ -17,7 +17,7 @@ Adding your `app/models/your_model.rb`
   def self.state_search(*attrs)
     attrs.reject!{|item| item.empty?}
     return true unless attrs.present?
-    self.where(state:attrs) # you should change change attribute to your object (state: or status: or etc)
+    self.where(state:attrs) # you should change for your attribute object (state: or status: or etc)
     
   end
 ```
